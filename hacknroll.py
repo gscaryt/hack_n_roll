@@ -1,6 +1,5 @@
 import random
 import json
-import os
 
 class Cloud:
     '''Stores the Tokens on the Cloud.'''
@@ -135,9 +134,9 @@ class Cracker(Player):
                     self.priority.remove(value)
                     self.priority.insert(0, value)
                 break
+
 class Results:
     rounds = []
-
 
 def reset(Cloud, sender, cracker):
     Cloud.encrypted = []
@@ -152,7 +151,8 @@ def game(round, sample):
     cracker = Cracker(75)
     turn = 1
     if round == sample:
-        os.remove("sample_game.txt")
+        with open('sample_game.txt', 'w') as sample_game:
+            sample_game.write('')
 
     while True:
 
@@ -161,9 +161,9 @@ def game(round, sample):
             s_roll = sender.roll_dice()
             if sender.tactic_block(cracker, 7, 1, s_roll):
                 pass
-            elif sender.tactic_block(cracker, 6, 3, s_roll):
+            elif sender.tactic_block(cracker, 6, 5, s_roll):
                 pass
-            elif sender.tactic_block(cracker, 8, 3, s_roll):
+            elif sender.tactic_block(cracker, 8, 5, s_roll):
                 pass
             else:
                 sender.strategy_basic(cracker, s_roll)
@@ -206,7 +206,7 @@ def game(round, sample):
                     )
             break
         elif turn == 300:
-            # It shouldn't reach here.
+            # This is too long. It shouldn't reach here.
             winner = "None"
             break
         else:
